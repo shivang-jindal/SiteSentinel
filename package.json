@@ -2,8 +2,31 @@
   "name": "sitesentinel",
   "version": "1.0.0",
   "private": true,
-  "description": "SiteSentinel - website uptime, endpoint, SSL and status-page monitoring for small teams.",
-  "license": "SEE LICENSE IN LICENSE",
+  "description": "SiteSentinel - website uptime, endpoint, SSL and status-page monitoring for small teams. SSRF-hardened probes, incident escalation, status pages, maintenance windows.",
+  "license": "MIT",
+  "homepage": "https://github.com/shivang-jindal/SiteSentinel#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shivang-jindal/SiteSentinel.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shivang-jindal/SiteSentinel/issues"
+  },
+  "keywords": [
+    "uptime",
+    "monitoring",
+    "ssl",
+    "status-page",
+    "incident",
+    "alert",
+    "ssrf",
+    "dns",
+    "saas",
+    "react",
+    "express",
+    "drizzle",
+    "typescript"
+  ],
   "engines": {
     "node": ">=20.11"
   },
