@@ -111,7 +111,7 @@ export function AppRouter() {
         <Route path="/welcome" element={<RequireSession><CreateOrganizationPage /></RequireSession>} />
         <Route path="/dashboard" element={<RequireSession><RedirectToFirstOrganization /></RequireSession>} />
         <Route
-          path="/:organizationId"
+          path="/:organizationId/*"
           element={
             <RequireSession>
               <RequireOrganization>

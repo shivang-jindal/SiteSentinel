@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useMemo } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import type { AuthSessionResponse, MembershipSummary, SessionUser } from '@sitesentinel/shared';
 
@@ -24,6 +24,7 @@ const SessionContext = createContext<SessionValue | null>(null);
 export function SessionProvider({ children }: { children: React.ReactNode }) {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+  const location = useLocation();
   const params = useParams();
 
   const session = useQuery({
@@ -76,13 +77,15 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
       loading: session.isLoading,
       switchOrganization: async (organizationId: string) => {
         await switchMutation.mutateAsync(organizationId);
+        const section = location.pathname.split('/').filter(Boolean)[1];
+        navigate(section ? `/${organizationId}/${section}` : `/${organizationId}`);
       },
       refresh: async () => {
         await session.refetch();
       },
       signOut,
     }),
-    [session, memberships, activeOrganizationId, activeOrganization, switchMutation, signOut],
+    [session, memberships, activeOrganizationId, activeOrganization, switchMutation, signOut, location, navigate],
   );
 
   return <SessionContext.Provider value={value}>{children}</SessionContext.Provider>;
