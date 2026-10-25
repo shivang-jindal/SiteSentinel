@@ -20,6 +20,11 @@ import { validate } from '../validate.js';
 
 const organizationSwitchParams = z.object({ organizationId: z.string().uuid() });
 
+/** A Firebase ID token is a JWT; bound the size before any parsing. */
+const googleSignInSchema = z.object({
+  idToken: z.string().trim().min(20).max(10_000),
+});
+
 export function authRouter(services: Services): Router {
   const router = Router();
 
@@ -85,6 +90,21 @@ export function authRouter(services: Services): Router {
       });
       setSessionCookie(res, session.token, session.expiresAt);
       res.json(await services.auth.sessionPayload(user.id, null));
+    }),
+  );
+
+  router.post(
+    '/google',
+    credentialLimiter,
+    validate({ body: googleSignInSchema }),
+    asyncHandler(async (req, res) => {
+      const { user, session } = await services.auth.signInWithGoogle({
+        idToken: (req.body as { idToken: string }).idToken,
+        meta: { ipAddress: req.clientIp, userAgent: req.userAgent },
+      });
+      setSessionCookie(res, session.token, session.expiresAt);
+      const payload = await services.auth.sessionPayload(user.id, null);
+      res.json(payload);
     }),
   );
 

@@ -58,7 +58,7 @@ export function createServices(options: {
   const adapter = createEmailAdapter(config);
   const audit = new AuditService(db);
   const jobs = new JobQueue(db);
-  const auth = new AuthService(db, config.session.ttlHours);
+  const auth = new AuthService(db, config.session.ttlHours, config.firebase.projectId);
   const organizations = new OrganizationService(db, audit);
   const monitors = new MonitorService(db, audit);
   const incidents = new IncidentService(db, audit);
