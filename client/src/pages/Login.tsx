@@ -42,7 +42,7 @@ export function LoginPage() {
   return (
     <AuthLayout
       title="Sign in to SiteSentinel"
-      description="Check, track payments and follow up on overdue balances."
+      description="Know the moment a site or endpoint goes down, and see exactly what changed."
       footer={
         <>
           No account yet?{' '}
