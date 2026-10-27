@@ -5,13 +5,10 @@ import { SessionProvider, useSession } from './lib/session';
 import { AcceptInvitationPage } from './pages/AcceptInvitation';
 import { CreateOrganizationPage } from './pages/CreateOrganization';
 import { DashboardPage } from './pages/Dashboard';
-import { ForgotPasswordPage } from './pages/ForgotPassword';
 import { LoginPage } from './pages/Login';
 import { MonitorsPage } from './pages/Monitors';
 import { MonitorDetailPage } from './pages/MonitorDetail';
 import { NotFoundPage } from './pages/NotFound';
-import { RegisterPage } from './pages/Register';
-import { ResetPasswordPage } from './pages/ResetPassword';
 import { SettingsPage } from './pages/Settings';
 import {
   IncidentsPage,
@@ -104,9 +101,9 @@ export function AppRouter() {
     <SessionProvider>
       <Routes>
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-        <Route path="/reset-password" element={<ResetPasswordPage />} />
+        <Route path="/register" element={<Navigate to="/login" replace />} />
+        <Route path="/forgot-password" element={<Navigate to="/login" replace />} />
+        <Route path="/reset-password" element={<Navigate to="/login" replace />} />
         <Route path="/accept-invitation" element={<AcceptInvitationPage />} />
         <Route path="/welcome" element={<RequireSession><CreateOrganizationPage /></RequireSession>} />
         <Route path="/dashboard" element={<RequireSession><RedirectToFirstOrganization /></RequireSession>} />
